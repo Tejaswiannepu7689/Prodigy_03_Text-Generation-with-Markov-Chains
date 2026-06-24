@@ -1,0 +1,36 @@
+import random
+
+text = """
+Artificial Intelligence is transforming industries.
+Artificial Intelligence helps automate tasks.
+Machine Learning is a branch of Artificial Intelligence.
+Machine Learning enables computers to learn from data.
+"""
+
+words = text.split()
+
+markov_chain = {}
+
+for i in range(len(words) - 1):
+    word = words[i]
+    next_word = words[i + 1]
+
+    if word not in markov_chain:
+        markov_chain[word] = []
+
+    markov_chain[word].append(next_word)
+
+start_word = random.choice(words)
+generated_text = [start_word]
+
+for _ in range(30):
+    current_word = generated_text[-1]
+
+    if current_word in markov_chain:
+        next_word = random.choice(markov_chain[current_word])
+        generated_text.append(next_word)
+    else:
+        break
+
+print("Generated Text:\n")
+print(" ".join(generated_text))
